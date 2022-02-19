@@ -160,3 +160,20 @@ void printFila (Fila *fila)
 	}
 }
 
+//Lê os dados do concerto e insere na fila
+void insereConcerto(Fila *fila)
+{
+    char nome[30], *telefone;
+    double valor;
+    
+	printf("Digite o valor do conserto: ");
+    scanf("%lf",&valor);
+	getchar();
+    printf("Digite o nome do solicitante: ");
+    fgets(nome,30,stdin);
+    printf("Digite o telefone do solicitante: ");
+    scanf("%s",telefone);
+    
+    tInfo *info = newInfo(nome,telefone,valor);
+    adicionaFim(fila, info);
+}

@@ -4,31 +4,11 @@
 #include <string.h>
 #include <time.h>
 
-Fila *fila;
+Fila fila;
 
-//Lê os dados do concerto e insere na fila
-void insereConcerto()
+int main()
 {
-    char *nome, *telefone;
-    double valor;
-
-    printf("Digite o nome do solicitante: ");
-    fgets(nome,30,stdin);
-    printf("Digite o telefone do solicitante: ");
-    fgets(telefone,15,stdin);
-    printf("Digite o valor do conserto: ");
-    scanf("%lf",&valor);
-
-    nome[strlen(nome)-1] = '\0';
-    telefone[strlen(telefone)-1] = '\0';
-    tInfo *info = newInfo(nome,telefone,valor);
-    adicionaFim(fila, info);
-    return;
-}
-
-int main(int argc, char const *argv[])
-{
-    newFila(fila);
+    newFila(&fila);
     while (1)
     {
         int op;
@@ -49,19 +29,19 @@ int main(int argc, char const *argv[])
             break;
                 
             case 1:
-                insereConcerto(fila);
+                insereConcerto(&fila);
             break;
 
             case 2:
-                retiraInicio(fila);
+                retiraInicio(&fila);
             break;
 
             case 3:
-                limpaFila(fila);
+                limpaFila(&fila);
             break;
 
             case 4:
-                printFila(fila);
+                printFila(&fila);
             break;
         }
     }

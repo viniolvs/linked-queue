@@ -37,3 +37,4 @@ void printInfo(tInfo *info,int posicao);
 
 void printFila (Fila *L);
 
+void insereConcerto(Fila *fila);
