@@ -21,9 +21,7 @@ typedef struct Fila
 
 Fila* newFila();
 
-tInfo* newInfo(char *nome, char *fone, double valor);
-
-void destroiInfo(tInfo *info);
+void newInfo(tInfo *info);
 
 short filaVazia (Fila *L);
 
@@ -37,4 +35,4 @@ void printInfo(tInfo *info,int posicao);
 
 void printFila (Fila *L);
 
-void insereConcerto(Fila *fila);
+void insereConcerto(Fila *fila, tInfo *info);

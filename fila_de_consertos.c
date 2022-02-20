@@ -11,6 +11,7 @@ int main()
     newFila(&fila);
     while (1)
     {
+        tInfo info;
         int op;
         printf ("\n==========MENU===========\n");
         printf ("[0] Sair\n");
@@ -29,7 +30,8 @@ int main()
             break;
                 
             case 1:
-                insereConcerto(&fila);
+                newInfo(&info);
+                insereConcerto(&fila,&info);
             break;
 
             case 2:
