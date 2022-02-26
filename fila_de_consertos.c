@@ -9,10 +9,11 @@ Fila fila;
 int main()
 {
     newFila(&fila);
+    int op = 0;
     while (1)
     {
-        tInfo info;
-        int op;
+        if(op!=4)
+            system("clear");
         printf ("\n==========MENU===========\n");
         printf ("[0] Sair\n");
         printf ("[1] Nova solicitação de conserto\n");
@@ -30,8 +31,7 @@ int main()
             break;
                 
             case 1:
-                newInfo(&info);
-                insereConcerto(&fila,&info);
+                insereConcerto(&fila);
             break;
 
             case 2:
@@ -43,7 +43,7 @@ int main()
             break;
 
             case 4:
-                printFila(&fila);
+                printFila(fila);
             break;
         }
     }

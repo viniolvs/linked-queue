@@ -4,29 +4,22 @@
 #include <string.h>
 #include "fila_encadeada.h"
 
-Fila* newFila()
-{
-	Fila *fila;
-	
-	fila = (Fila*)malloc(sizeof(Fila));
-	if (fila != NULL)
-	{
-		fila->tamanho=0;
-		fila->head = fila->tail = NULL;
-	}
-	else
-	{
-		printf("\nFalha na alocação!\n");
-	}
-	
-	return fila;
+void newFila(Fila *fila)
+{	
+	fila->head = NULL;
+	fila->tail = NULL;
+	fila->tamanho=0;
 }
 
 //aloca tInfo;
-void newInfo(tInfo *info )//(char *nome, char *fone, double valor)
+/*void newInfo(tInfo *info )
 {
 	info = (tInfo*)malloc(sizeof(tInfo));
-}
+	info->nome_solicitante = (char*)malloc(30*sizeof(char));
+	info->telefone = (char*)malloc(30*sizeof(char));
+	info->data_entrega = (char*)malloc(50*sizeof(char));
+	info->valor_conserto = 0;
+}*/
 
 short filaVazia (Fila *fila)
 {
@@ -36,35 +29,31 @@ short filaVazia (Fila *fila)
 		return 0;
 }
 
-//alocar info com newinfo() antes de pasar para este método
-int adicionaFim (Fila *fila, tInfo *info)
+int adicionaFim (Fila *fila, tInfo info)
 {
 	tElement *new;
+	tElement *aux;
 	
 	new = (tElement*)malloc(sizeof(tElement));
 	if (new==NULL)
 	{
 		printf("Malloc Error\n");
-		exit(1);
+		return EXIT_FAILURE;
 	}
     else 
     {
-		new->info = info;
-		new->info->nome_solicitante = info->nome_solicitante;
-		new->info->data_entrega = info->data_entrega;
-		new->info->telefone = info->telefone;
-		new->info->valor_conserto = info->valor_conserto;
-		
+		new->info = (tInfo*)malloc(sizeof(tInfo));
+		*new->info = info;
         if (filaVazia(fila))
 		{
-			fila->head = fila->tail = new;
-			fila->head->next = fila->tail->next = NULL;
+			fila->head = new;
+			fila->tail = new;
     	}
 		else 
 		{
-			fila->tail->next = new;
+			aux = fila->tail;
 			fila->tail = new;
-			fila->tail->next = NULL;
+			aux->next = new;
 		}
 		fila->tamanho++;
 		return EXIT_SUCCESS;
@@ -99,19 +88,13 @@ tInfo* retiraInicio (Fila *fila)
 		
 void limpaFila(Fila *fila)
 {
-	tElement *atual, *anterior;
 	if (filaVazia(fila))
 		return;
 	else
-	{
-		fila->tamanho = 0;
-		atual = fila->head;
-		while (atual !=NULL)
+	{	
+		while (fila->tamanho > 0)
 		{
-			anterior = atual;
-			free(anterior->info->nome_solicitante);
-			free(anterior->info->telefone);
-			atual = atual->next;
+			retiraInicio(fila);
 		}
 	}
 }
@@ -126,57 +109,51 @@ void printInfo(tInfo *info, int posicao)
 }
 
 
-void printFila (Fila *fila)
+void printFila (Fila fila)
 {
-	tElement *aux;
-	aux = fila->head;
-	int posicao=1;
-
-	if (filaVazia(fila))
+	if (filaVazia(&fila))
 		printf("\nFila Vazia!\n");
 	
 	else
 	{
+		tElement *aux;
+		aux = fila.head;
+		int posicao=1;
 		printf("--------------------------------------\n");
 		printf("Concertos na fila: \n");
-		while (aux != NULL)
+		while (posicao < fila.tamanho+1)
 		{
 			printInfo(aux->info, posicao++);
-			if (aux->next)
+			if (aux->next){
 				printf("\n");
-			aux = aux->next;
+				aux = aux->next;
+			}
 		}
 		printf("--------------------------------------\n");
 	}
 }
 
 //Lê os dados do concerto e insere na fila
-void insereConcerto(Fila *fila, tInfo *info)
+void insereConcerto(Fila *fila)
 {
-    char *nome, *telefone;
-    double valor;
-    
-	nome = (char*)malloc(30*sizeof(char));
-	telefone = (char*)malloc(15*sizeof(char));
-
+	system("clear");
+	tInfo info;
 	printf("\nDigite o valor do conserto: ");
-    scanf("%lf",&valor);
+    scanf("%lf",&info.valor_conserto);
 	getchar();
     printf("Digite o nome do solicitante: ");
-    fgets(nome,30,stdin);
+    fgets(info.nome_solicitante,30,stdin);
     printf("Digite o telefone do solicitante: ");
-    scanf("%s",telefone);
+    scanf("%s",info.telefone);
 	
-	nome[strcspn(nome,"\n")] = 0;
-    
-	info->nome_solicitante = nome;
-	info->telefone = telefone;
-	info->valor_conserto = valor;
+	
 	time_t t;
 	time(&t);
 	t = t+(60*60*24*14);
-	info->data_entrega = ctime(&t);
-	info->data_entrega[strcspn(info->data_entrega,"\n")] = 0;
-
+	info.data_entrega = ctime(&t);
+	//remove a quebra de linha do final da string
+	info.data_entrega[strcspn(info.data_entrega,"\n")] = 0;
+	info.nome_solicitante[strcspn(info.nome_solicitante,"\n")] = 0;
+	
     adicionaFim(fila, info);
 }

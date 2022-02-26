@@ -1,7 +1,7 @@
 typedef struct tInfo
 {
-	char *nome_solicitante;
-	char *telefone;
+	char nome_solicitante[30];
+	char telefone[45];
     char *data_entrega;
     double valor_conserto;
 }tInfo;
@@ -19,20 +19,20 @@ typedef struct Fila
 	int tamanho;
 }Fila;
 
-Fila* newFila();
+void newFila(Fila *fila);
 
 void newInfo(tInfo *info);
 
-short filaVazia (Fila *L);
+short filaVazia (Fila *fila);
 
-int adicionaFim (Fila *L, tInfo *data);
+int adicionaFim (Fila *fila, tInfo info);
 
-tInfo* retiraInicio (Fila *L);
+tInfo* retiraInicio (Fila *fila);
 
-void limpaFila(Fila *L);
+void limpaFila(Fila *fila);
 
 void printInfo(tInfo *info,int posicao);
 
-void printFila (Fila *L);
+void printFila (Fila fila);
 
-void insereConcerto(Fila *fila, tInfo *info);
+void insereConcerto(Fila *fila);
