@@ -148,5 +148,5 @@ void insereConcerto(Fila *fila)
 	info.modelo[strcspn(info.modelo,"\n")] = 0;	
     adicionaFim(fila, info);
 	
-	printf("\nA data estimada de entrega do computador é:\n%s",info.data_entrega);
+	printf("\nA data estimada de entrega do computador é:\n%s\n",info.data_entrega);
 }
