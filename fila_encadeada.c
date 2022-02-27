@@ -99,7 +99,6 @@ void printInfo(tInfo *info, int posicao)
 	printf("Valor do conserto %.2lf\n",info->valor_conserto);
 }
 
-
 void printFila (Fila fila)
 {
 	if (filaVazia(&fila))
