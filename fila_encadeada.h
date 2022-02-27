@@ -1,3 +1,6 @@
+//ATV 01 ESTRUTURA DE DADOS
+//Vinicius de Oliveira Silva
+
 #ifndef TINFO_T
 #define TINFO_T 1
 //tipo Info, armazena as informações contidas em cada elemento da fila
