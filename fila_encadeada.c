@@ -11,16 +11,6 @@ void newFila(Fila *fila)
 	fila->tamanho=0;
 }
 
-//aloca tInfo;
-/*void newInfo(tInfo *info )
-{
-	info = (tInfo*)malloc(sizeof(tInfo));
-	info->nome_solicitante = (char*)malloc(30*sizeof(char));
-	info->telefone = (char*)malloc(30*sizeof(char));
-	info->data_entrega = (char*)malloc(50*sizeof(char));
-	info->valor_conserto = 0;
-}*/
-
 short filaVazia (Fila *fila)
 {
 	if (fila->tamanho==0)
@@ -101,11 +91,12 @@ void limpaFila(Fila *fila)
 
 void printInfo(tInfo *info, int posicao)
 {
+	printf("Posição na fila: %5.d\n",posicao);
 	printf("Nome do solicitante: %s\n",info->nome_solicitante);
+	printf("Modelo do computador: %s\n",info->modelo);
 	printf("Telefone: %s\n",info->telefone);
 	printf("Data de Entrega: %s\n",info->data_entrega);
 	printf("Valor do conserto %.2lf\n",info->valor_conserto);
-	printf("Posição na fila: %d\n",posicao);
 }
 
 
@@ -119,8 +110,8 @@ void printFila (Fila fila)
 		tElement *aux;
 		aux = fila.head;
 		int posicao=1;
+		printf("\n       CONCERTOS NA FILA: \n");
 		printf("--------------------------------------\n");
-		printf("Concertos na fila: \n");
 		while (posicao < fila.tamanho+1)
 		{
 			printInfo(aux->info, posicao++);
@@ -133,7 +124,6 @@ void printFila (Fila fila)
 	}
 }
 
-//Lê os dados do concerto e insere na fila
 void insereConcerto(Fila *fila)
 {
 	system("clear");
@@ -143,6 +133,8 @@ void insereConcerto(Fila *fila)
 	getchar();
     printf("Digite o nome do solicitante: ");
     fgets(info.nome_solicitante,30,stdin);
+	printf("Digite o modelo do computador: ");
+	fgets(info.modelo,20,stdin);
     printf("Digite o telefone do solicitante: ");
     scanf("%s",info.telefone);
 	
@@ -154,6 +146,8 @@ void insereConcerto(Fila *fila)
 	//remove a quebra de linha do final da string
 	info.data_entrega[strcspn(info.data_entrega,"\n")] = 0;
 	info.nome_solicitante[strcspn(info.nome_solicitante,"\n")] = 0;
-	
+	info.modelo[strcspn(info.modelo,"\n")] = 0;	
     adicionaFim(fila, info);
+	
+	printf("\nA data estimada de entrega do computador é:\n%s",info.data_entrega);
 }

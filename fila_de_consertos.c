@@ -12,7 +12,7 @@ int main()
     int op = 0;
     while (1)
     {
-        if(op!=4)
+        if(op!=4 && op!=1)
             system("clear");
         printf ("\n==========MENU===========\n");
         printf ("[0] Sair\n");

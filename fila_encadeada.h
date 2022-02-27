@@ -1,7 +1,8 @@
 typedef struct tInfo
 {
-	char nome_solicitante[30];
-	char telefone[45];
+	char nome_solicitante[31];
+	char telefone[15];
+	char modelo[21];
     char *data_entrega;
     double valor_conserto;
 }tInfo;
@@ -20,8 +21,6 @@ typedef struct Fila
 }Fila;
 
 void newFila(Fila *fila);
-
-void newInfo(tInfo *info);
 
 short filaVazia (Fila *fila);
 
